@@ -8,7 +8,7 @@
         <li>Created by: {{ ticket.creator }}</li>
         <li>Created at: {{ ticket.created_at }}</li>
         {% for selection in ticket.selections.all %}
-            <li>{{ selection.option }}: {{ selection.choice }}</li>
+            <li>{{ selection.option }}: {{ selection.choice.text }}</li>
         {% endfor %}
     </ul>
 

@@ -5,7 +5,7 @@ from django.template import RequestContext
 
 from django_vcs.models import CodeRepository
 
-from tickets.forms import get_ticket_form
+from tickets.forms import TicketForm, get_ticket_form
 from tickets.models import Ticket
 
 def ticket_list(request, slug):
@@ -18,22 +18,25 @@ def ticket_list(request, slug):
 
 def new_ticket(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)
-    TicketForm = get_ticket_form(repo)
+    TicketDetailForm = get_ticket_form(repo)
     if request.method == "POST":
         form = TicketForm(request.POST)
-        if form.is_valid():
+        detail_form = TicketDetailForm(request.POST)
+        if form.is_valid() and detail_form.is_valid():
             ticket = form.save(commit=False)
             ticket.repo = repo
             ticket.creator = request.user
             ticket.created_at = datetime.now()
             ticket.save()
+            detail_form.save(ticket)
             return redirect(ticket)
     else:
         form = TicketForm()
+        detail_form = TicketDetailForm()
     return render_to_response([
         'tickets/%s/new_ticket.html' % repo.name,
         'tickets/new_ticket.html',
-    ], {'repo': repo, 'form': form}, context_instance=RequestContext(request))
+    ], {'repo': repo, 'form': form, 'detail_form': detail_form}, context_instance=RequestContext(request))
 
 def ticket_detail(request, slug, ticket_id):
     repo = get_object_or_404(CodeRepository, slug=slug)
