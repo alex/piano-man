@@ -16,6 +16,7 @@ class Ticket(models.Model):
 
 class TicketOption(models.Model):
     name = models.CharField(max_length=100)
+    repo = models.ForeignKey(CodeRepository)
 
     def __unicode__(self):
         return self.name
