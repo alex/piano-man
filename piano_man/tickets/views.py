@@ -47,7 +47,7 @@ def ticket_detail(request, slug, ticket_id):
         detail_form = TicketDetailForm(request.POST)
         if form.is_valid() and detail_form.is_valid():
             ticket = form.save()
-            detail_form.save(ticket, new=False)
+            detail_form.save(ticket, new=False, user=request.user)
             return redirect(ticket)
     else:
         form = TicketForm(instance=ticket)

@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -6,7 +8,7 @@ from django_vcs.models import CodeRepository
 class Ticket(models.Model):
     repo = models.ForeignKey(CodeRepository, related_name="tickets")
     creator = models.ForeignKey(User)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=datetime.datetime.now)
 
     title = models.CharField(max_length=150)
     description = models.TextField()
@@ -47,6 +49,8 @@ class TicketOptionSelection(models.Model):
 
 class TicketChange(models.Model):
     ticket = models.ForeignKey(Ticket, related_name="changes")
+    user = models.ForeignKey(User)
+    at = models.DateTimeField(default=datetime.datetime.now)
     text = models.TextField()
 
 class TicketChangeItem(models.Model):

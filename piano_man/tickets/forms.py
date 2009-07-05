@@ -8,7 +8,7 @@ class TicketForm(forms.ModelForm):
         fields = ['title', 'description']
 
 class TicketDetailForm(forms.Form):
-    def save(self, ticket, new=True, commit=True):
+    def save(self, ticket, new=True, user=None, commit=True):
         if not new:
             changes = []
         for option in self.fields:
@@ -25,7 +25,7 @@ class TicketDetailForm(forms.Form):
                 if not updated:
                     TicketOptionSelection.objects.create(ticket=ticket, option=option, choice=choice)
         if not new and changes:
-            change = TicketChange.objects.create(ticket=ticket)
+            change = TicketChange.objects.create(ticket=ticket, user=user)
             for option, from_text, to_text in changes:
                 change.changes.create(option=option, from_text=from_text, to_text=to_text)
 
