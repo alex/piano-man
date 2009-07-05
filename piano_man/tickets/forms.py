@@ -14,6 +14,10 @@ class TicketDetailForm(forms.Form):
             choice = TicketOptionChoice.objects.get(pk=self.cleaned_data[option.name], option=option)
             if new:
                 TicketOptionSelection.objects.create(ticket=ticket, option=option, choice=choice)
+            else:
+                updated = TicketOoptionSelect.objects.filter(ticket=ticket, option=option).update(choice=choice)
+                if not updated:
+                    TicketOptionSelection.objects.create(ticket=ticket, option=option, choice=choice)
 
 
 def get_ticket_form(repo):
