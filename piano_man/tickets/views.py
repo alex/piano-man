@@ -22,6 +22,7 @@ def new_ticket(request, slug):
         if form.is_valid():
             ticket = form.save(commit=False)
             ticket.repo = repo
+            ticket.creator = request.user
             ticket.save()
             return redirect(ticket)
     else:
