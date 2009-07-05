@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Details for ticket #{{ ticket.pk }} on {{ repo.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ ticket.title }}</h1>
+    <ul>
+        <li>Created by: {{ ticket.creator }}</li>
+        <li>Created at: {{ ticket.created_at }}</li>
+        {% for selection in ticket.selections.all %}
+            <li>{{ selection.option }}: {{ selection.choice }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Changes</h3>
+    <ul>
+        {% for change in ticket.changes.all %}
+            <li>
+                <ul>
+                    {% for change_item in change.changes.all %}
+                        <ul>
+                            {{ change_item.option }} changed from {{ change_item.from_text }} to {{ chnage_item.to_text }}
+                        </ul>
+                    {% endfor %}
+                </ul>
+                <p>{{ change.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

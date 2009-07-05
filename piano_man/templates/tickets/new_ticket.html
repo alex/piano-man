@@ -4,10 +4,12 @@
 
 {% block content %}
     <table>
-        {{ form }}
-        <tr>
-            <td></td>
-            <td><input type="submit" /></td>
-        </tr>
+        <form method="post" action=".">
+            {{ form }}
+            <tr>
+                <td></td>
+                <td><input type="submit" /></td>
+            </tr>
+        </form>
     </table>
 {% endblock %}

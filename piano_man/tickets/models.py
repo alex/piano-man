@@ -14,6 +14,10 @@ class Ticket(models.Model):
     def __unicode__(self):
         return "%s filed by %s" % (self.title, self.creator)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('ticket_detail', (), {'slug': self.repo.slug, 'ticket_id': self.pk})
+
 class TicketOption(models.Model):
     name = models.CharField(max_length=100)
     repo = models.ForeignKey(CodeRepository)
