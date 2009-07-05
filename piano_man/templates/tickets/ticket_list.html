@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Tickets for {{ repo.name }}{% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>Creator</th>
+            <th>Created At</th>
+            <th>Title</th>
+        </tr>
+        {% for ticket in tickets %}
+            <tr>
+                <td>
+                    {{ ticket.creator }}
+                </td>
+                <td>
+                    {{ ticket.created_at }}
+                </td>
+                <td>
+                    {{ ticket.title }}
+                </td>
+            <tr>
+        {% endfor %}
+    </table>
+{% endblock %}

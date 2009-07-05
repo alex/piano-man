@@ -4,7 +4,7 @@ from django.db import models
 from django_vcs.models import CodeRepository
 
 class Ticket(models.Model):
-    repo = models.ForeignKey(CodeRepository)
+    repo = models.ForeignKey(CodeRepository, related_name="tickets")
     creator = models.ForeignKey(User)
     created_at = models.DateTimeField()
 
