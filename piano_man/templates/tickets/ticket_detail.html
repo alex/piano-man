@@ -18,13 +18,23 @@
             <li>
                 <ul>
                     {% for change_item in change.changes.all %}
-                        <ul>
+                        <li>
                             {{ change_item.option }} changed from {{ change_item.from_text }} to {{ chnage_item.to_text }}
-                        </ul>
+                        </li>
                     {% endfor %}
                 </ul>
                 <p>{{ change.text }}</p>
             </li>
         {% endfor %}
     </ul>
+    <table>
+        <form method="post" action=".">
+            {{ form }}
+            {{ detail_form }}
+            <tr>
+                <td></td>
+                <td><input type="submit" /></td>
+            </tr>
+        </form>
+    </table>
 {% endblock %}
