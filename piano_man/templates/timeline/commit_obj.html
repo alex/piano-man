@@ -1,1 +1,1 @@
-Commit - {{ item.commit_id }} {{ item.message }}
+<a href="{% url commit_detail slug=repo.slug commit_id=item.commit_id %}">Commit - {{ item.commit_id }}</a> {{ item.message }}
