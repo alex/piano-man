@@ -5,13 +5,18 @@ from django.db import models
 
 from django_vcs.models import CodeRepository
 
+from tickets.managers import TicketManager
+
 class Ticket(models.Model):
     repo = models.ForeignKey(CodeRepository, related_name="tickets")
     creator = models.ForeignKey(User)
     created_at = models.DateTimeField(default=datetime.datetime.now)
+    closed = models.BooleanField(default=False)
 
     title = models.CharField(max_length=150)
     description = models.TextField()
+
+    objects = TicketManager()
 
     def __unicode__(self):
         return "%s filed by %s" % (self.title, self.creator)
