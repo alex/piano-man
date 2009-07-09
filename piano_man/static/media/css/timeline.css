@@ -1,0 +1,14 @@
+.commit {
+    background: transparent url("../img/cog.png") center left no-repeat;
+    padding-left: 20px;
+}
+
+.new-ticket {
+    background: transparent url("../img/bug_add.png") center left no-repeat;
+    padding-left: 20px;
+}
+
+.ticket-change {
+    background: transparent url("../img/bug_edit.png") center left no-repeat;
+    padding-left: 20px;
+}

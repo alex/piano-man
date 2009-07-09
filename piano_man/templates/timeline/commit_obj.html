@@ -1,1 +1,3 @@
-<a href="{% url commit_detail slug=repo.slug commit_id=item.commit_id %}">Commit - {{ item.commit_id }}</a> {{ item.message }}
+<li class="commit">
+    {{ item.canonical_date.time }} <a href="{% url commit_detail slug=repo.slug commit_id=item.commit_id %}">Commit - {{ item.commit_id }}</a> {{ item.message }}
+</li>

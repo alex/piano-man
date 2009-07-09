@@ -4,15 +4,17 @@
 
 {% block title %}Timeline for {{ repo.name }}{% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ MEDIA_URL }}media/css/timeline.css" type="text/css" media="screen" />
+{% endblock %}
+
 {% block content %}
     {% regroup items by canonical_date.date as items %}
     {% for date in items %}
         <h2>{{ date.grouper }}</h2>
         <ul>
             {% for item in date.list %}
-                <li>
-                    {{ item.canonical_date.time }} {% timeline_item item repo %}
-                </li>
+                {% timeline_item item repo %}
             {% endfor %}
         </ul>
     {% endfor %}

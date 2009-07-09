@@ -1,1 +1,3 @@
-<a href="{{ item.get_absolute_url }}">Ticket Change - {{ item.ticket.id }}</a> changed
+<li class="ticket-change">
+    {{ item.canonical_date.time }} <a href="{{ item.get_absolute_url }}">Ticket Change - {{ item.ticket.id }}</a> changed
+</li>
