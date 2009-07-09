@@ -9,13 +9,13 @@
     <body>
         <div class="container_12">
             <ul id="nav" class="grid_12">
-                <li><a href="#" class="first">Home&gt;</a></li>
-                <li><a href="#">Repository Name</a></li>
+                <li><a href="{% url repo_list %}" class="first">Home</a> &gt;</li>
+                <li><a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a></li>
             </ul>
             <ul id="subnav" class="grid_12">
-                <li class="grid_2 alpha active"><a href="#">Timeline</a></li>
-                <li class="grid_2"><a href="#">Tickets</a></li>
-                <li class="grid_2 append_6 omega"><a href="#">Code Browser</a></li>
+                <li class="grid_2 alpha active"><a href="{% url timeline slug=repo.slug %}">Timeline</a></li>
+                <li class="grid_2"><a href="{% url ticket_list slug=repo.slug %}">Tickets</a></li>
+                <li class="grid_2 append_6 omega"><a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a></li>
             </ul>
             <div class="grid_12">
                 {% block content %}{% endblock %}
