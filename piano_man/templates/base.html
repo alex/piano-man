@@ -1,9 +1,31 @@
 <html>
-    <head>
-        <title>{% block title %}{% endblock %}
-        {% block extra_head %}{% endblock %}
-    </head>
-    <body>
-        {% block content %}{% endblock %}
-    </body>
+  <head>
+      <title>{% block title %}Piano-Man: Riffing on Code{% endblock %}</title>
+      {% block extra_head %}{% endblock %}
+      <link rel="stylesheet" href="/static/media/css/reset.css" type="text/css" media="screen" />
+      <link rel="stylesheet" href="/static/media/css/960.css" type="text/css" media="screen" />
+      <link rel="stylesheet" href="/static/media/css/global.css" type="text/css" media="screen" />
+  </head>
+  <body>
+    <div class="container_12">
+      <div class="grid_3 alpha" style="background-color:#6060c0">
+        <p>Test Color</p>
+      </div>
+      <div class="grid_3" style="background-color:#f0f0f0">
+        <p>Test Color</p>
+      </div>
+      <div class="grid_2" style="background-color:#303030; color: #f0f0f0">
+        <p>Test Color</p>
+      </div>
+      <div class="grid_2" style="background-color:#f0c018">
+        <p>Test Color</p>
+      </div>
+      <div class="grid_2 omega" style="background-color:#d84848">
+        <p>Test Color</p>
+      </div>
+      <div class="grid_12">
+      {% block content %}{% endblock %}
+      </div>
+    </div>
+  </body>
 </html>
