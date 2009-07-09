@@ -20,7 +20,10 @@ class TicketDetailForm(forms.Form):
             if new:
                 TicketOptionSelection.objects.create(ticket=ticket, option=option, choice=choice)
             else:
-                from_text = ticket.selections.get(option=option).choice.text
+                try:
+                    from_text = ticket.selections.get(option=option).choice.text
+                except TicketOptionSelect.DoesNotExist:
+                    from_text = ''
                 to_text = choice.text
                 if from_text != to_text:
                     changes.append((option, from_text, to_text))
