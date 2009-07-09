@@ -14,8 +14,8 @@ ticket_urls = patterns('tickets.views',
 repo_urls = patterns('',
     url(r'^timeline/$', 'timeline.views.timeline', name='timeline'),
     url(r'^tickets/', include(ticket_urls)),
-    url(r'commit/(?P<commit_id>.*)/$', 'django_vcs.views.commit_detail', name='commit_detail'),
-    url(r'browser/(?P<path>.*)$', 'django_vcs.views.code_browser', name='code_browser'),
+    url(r'^commit/(?P<commit_id>.*)/$', 'django_vcs.views.commit_detail', name='commit_detail'),
+    url(r'^browser/(?P<path>.*)$', 'django_vcs.views.code_browser', name='code_browser'),
 )
 
 
