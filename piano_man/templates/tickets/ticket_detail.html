@@ -23,6 +23,7 @@
                         </li>
                     {% endfor %}
                 </ul>
+                <p>Changed by {{ change.user}} at {{ change.at }}</p>
                 <p>{{ change.text }}</p>
             </li>
         {% endfor %}
