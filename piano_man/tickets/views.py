@@ -41,7 +41,7 @@ def new_ticket(request, slug):
 def ticket_detail(request, slug, ticket_id):
     repo = get_object_or_404(CodeRepository, slug=slug)
     ticket = get_object_or_404(repo.tickets.all(), pk=ticket_id)
-    TicketDetailForm = get_ticket_form(repo)
+    TicketDetailForm = get_ticket_form(repo, edit=True)
     if request.method == "POST":
         form = TicketForm(request.POST, instance=ticket)
         detail_form = TicketDetailForm(request.POST)
