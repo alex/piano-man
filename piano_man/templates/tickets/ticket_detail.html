@@ -23,7 +23,7 @@
                 <ul>
                     {% for change_item in change.changes.all %}
                         <li>
-                            {{ change_item.option }} changed from {% if change_item.from_text %}{{ change_item.from_text }}{% else %}empty{% endif %} to {{ change_item.to_text }}
+                            {{ change_item.option }} changed from {{ change_item.from_text|default:"None" }} to {{ change_item.to_text }}
                         </li>
                     {% endfor %}
                 </ul>

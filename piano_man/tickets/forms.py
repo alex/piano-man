@@ -24,7 +24,7 @@ class TicketDetailForm(forms.Form):
             else:
                 try:
                     from_text = ticket.selections.get(option=option).choice.text
-                except TicketOptionSelection.DoesNotExist:
+                except (AttributeError, TicketOptionSelection.DoesNotExist):
                     from_text = ''
                 to_text = choice.text
                 if from_text != to_text:
