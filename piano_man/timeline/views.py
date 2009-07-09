@@ -22,4 +22,4 @@ def timeline(request, slug):
     return render_to_response([
         'timeline/%s/timeline.html' % repo.name,
         'timeline/timeline.html',
-    ], {'items': items}, context_instance=RequestContext(request))
+    ], {'repo': repo, 'items': items}, context_instance=RequestContext(request))
