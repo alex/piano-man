@@ -1,2 +1,5 @@
 dev.db
 *.pyc
+*.swp
+*.project
+.pydevproject
