@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Timeline for {{ repo.name }}{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for item in items %}
+            <li>
+                {% firstof item.pk item.commit_id %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

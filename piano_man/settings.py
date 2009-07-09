@@ -81,4 +81,5 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django_vcs',
     'tickets',
+    'timeline',
 )
