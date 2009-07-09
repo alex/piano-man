@@ -5,12 +5,16 @@
 {% block content %}
     <table>
         <tr>
+            <th>#</th>
             <th>Creator</th>
             <th>Created At</th>
             <th>Title</th>
         </tr>
         {% for ticket in tickets %}
             <tr>
+                <td>
+                    <a href="{{ ticket.get_absolute_url }}">{{ ticket.id }}</a>
+                </td>
                 <td>
                     {{ ticket.creator }}
                 </td>
