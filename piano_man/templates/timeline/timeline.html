@@ -6,7 +6,7 @@
     <ul>
         {% for item in items %}
             <li>
-                {% firstof item.pk item.commit_id %}
+                {% firstof item.ticket.pk item.pk item.commit_id %} - {% firstof item.at item.created_at item.time %}
             </li>
         {% endfor %}
     </ul>
