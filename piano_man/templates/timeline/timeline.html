@@ -5,11 +5,15 @@
 {% block title %}Timeline for {{ repo.name }}{% endblock %}
 
 {% block content %}
-    <ul>
-        {% for item in items %}
-            <li>
-                {% timeline_item item %}
-            </li>
-        {% endfor %}
-    </ul>
+    {% regroup items by canonical_date.date as items %}
+    {% for date in items %}
+        <h2>{{ date.grouper }}</h2>
+        <ul>
+            {% for item in date.list %}
+                <li>
+                    {{ item.canonical_date.time }} {% timeline_item item %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 {% endblock %}

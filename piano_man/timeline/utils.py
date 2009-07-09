@@ -1,8 +1,5 @@
-from itertools import chain
-
-def merge_sorted_iters(*iters, **kwargs):
-    keys = kwargs['keys']
-    reverse = kwargs.pop('reverse', False)
+def normalize_attr(objs, new_attr, keys):
     def key_func(o):
         return getattr(o, keys[type(o)])
-    return sorted(chain(*iters), key=key_func, reverse=reverse)
+    for obj in objs:
+        setattr(obj, new_attr, key_func(obj))
