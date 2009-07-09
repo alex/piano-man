@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
+{% load timeline %}
+
 {% block title %}Timeline for {{ repo.name }}{% endblock %}
 
 {% block content %}
     <ul>
         {% for item in items %}
             <li>
-                {% firstof item.ticket.pk item.pk item.commit_id %} - {% firstof item.at item.created_at item.time %}
+                {% timeline_item item %}
             </li>
         {% endfor %}
     </ul>
