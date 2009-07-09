@@ -3,8 +3,12 @@
 {% block title %}Details for ticket #{{ ticket.pk }} on {{ repo.name }}{% endblock %}
 
 {% block content %}
-    <h1>{{ ticket.title }}</h1>
-    <ul>
+    <div class="grid_7 alpha">
+        <h2>{{ ticket.title }}</h2>
+        <p>{{ ticket.description }}</p>
+    </div>
+
+    <ul class="grid_5 omega">
         <li>Created by: {{ ticket.creator }}</li>
         <li>Created at: {{ ticket.created_at }}</li>
         {% for selection in ticket.selections.all %}
@@ -13,7 +17,7 @@
     </ul>
 
     <h3>Changes</h3>
-    <ul>
+    <ol id="change_list" class="grid_10 append_2">
         {% for change in ticket.changes.all %}
             <li>
                 <ul>
@@ -27,8 +31,8 @@
                 <p>{{ change.text }}</p>
             </li>
         {% endfor %}
-    </ul>
-    <table>
+    </ol>
+    <table class="grid_8 append_4">
         <form method="post" action=".">
             {{ form }}
             {{ detail_form }}
