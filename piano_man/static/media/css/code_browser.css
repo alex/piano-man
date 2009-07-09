@@ -1,0 +1,9 @@
+.folder {
+    background: transparent url("../img/folder.png") center left no-repeat;
+    padding-left: 20px;
+}
+
+.file {
+    background: transparent url("../img/file.png") center left no-repeat;
+    padding-left: 20px;
+}
