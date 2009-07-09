@@ -73,6 +73,14 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
 
+def repo_get_absolute_url(obj):
+    from django.core.urlresolvers import reverse
+    return reverse('timeline', kwargs={'slug': obj.slug})
+
+ABSOLUTE_URL_OVERRIDES = {
+    'django_vcs.coderepository': repo_get_absolute_url,
+}
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
