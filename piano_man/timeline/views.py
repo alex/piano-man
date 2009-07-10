@@ -16,8 +16,8 @@ def timeline(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)
     since = datetime.now() - timedelta(days=5)
     items = list(chain(
-        Ticket.objects.filter(created_at__gte=since).order_by('-created_at'),
-        TicketChange.objects.filter(at__gte=since).order_by('-at'),
+        Ticket.objects.filter(repo=repo, created_at__gte=since).order_by('-created_at'),
+        TicketChange.objects.filter(ticket__repo=repo, at__gte=since).order_by('-at'),
         repo.get_recent_commits(since),
     ))
     normalize_attr(items, 'canonical_date',
