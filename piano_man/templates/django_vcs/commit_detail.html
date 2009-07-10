@@ -17,7 +17,7 @@
     <ul>
         <li>Committed by: {{ commit.author }}</li>
         <li>Committed at: {{ commit.time }}</li>
-        <li>Commit message: {{ commit.message }}</li>
+        <li>Commit message: {{ commit.message|linebreaksbr }}</li>
         <li>Affected files:
             <ul>
                 {% for file in commit.files %}
