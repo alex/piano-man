@@ -32,7 +32,7 @@ class TicketDetailForm(forms.Form):
                 updated = TicketOptionSelection.objects.filter(ticket=ticket, option=option).update(choice=choice)
                 if not updated:
                     TicketOptionSelection.objects.create(ticket=ticket, option=option, choice=choice)
-        if not new and changes:
+        if not new and (changes or self.cleaned_data['comment']):
             change = TicketChange.objects.create(ticket=ticket, user=user, text=self.cleaned_data['comment'])
             for option, from_text, to_text in changes:
                 change.changes.create(option=option, from_text=from_text, to_text=to_text)

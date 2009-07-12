@@ -21,15 +21,16 @@
         {% for change in ticket.changes.all %}
             <li>
                 <ul>
+                    <p>Changed by {{ change.user}} at {{ change.at }}</p>
                     {% for change_item in change.changes.all %}
                         <li>
                             {{ change_item.option }} changed from {{ change_item.from_text|default:"None" }} to {{ change_item.to_text }}
                         </li>
                     {% endfor %}
                 </ul>
-                <p>Changed by {{ change.user}} at {{ change.at }}</p>
                 <p>{{ change.text }}</p>
             </li>
+            <hr />
         {% endfor %}
     </ol>
     <table class="grid_8 append_4">
