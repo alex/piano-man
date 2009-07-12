@@ -18,6 +18,7 @@
                 <ul id="subnav" class="grid_12">
                     <li class="grid_2 alpha active"><a href="{% url timeline slug=repo.slug %}">Timeline</a></li>
                     <li class="grid_2"><a href="{% url ticket_list slug=repo.slug %}">Tickets</a></li>
+                    <li class="grid_2"><a href="{% url new_ticket slug=repo.slug %}">New Ticket</a></li>
                     <li class="grid_2 append_6 omega"><a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a></li>
                 </ul>
             {% endif %}
