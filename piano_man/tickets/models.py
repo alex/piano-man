@@ -65,6 +65,6 @@ class TicketChange(models.Model):
 class TicketChangeItem(models.Model):
     ticket_change = models.ForeignKey(TicketChange, related_name="changes")
 
-    option = models.ForeignKey(TicketOption)
-    from_text = models.CharField(max_length=255)
-    to_text = models.CharField(max_length=255)
+    option = models.CharField(max_length=100)
+    from_text = models.TextField()
+    to_text = models.TextField()

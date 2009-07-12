@@ -9,7 +9,7 @@ class TicketForm(forms.ModelForm):
         fields = ['title', 'description']
 
 class TicketDetailForm(forms.Form):
-    def save(self, ticket, new=True, user=None, commit=True):
+    def save(self, ticket, new=True, user=None, extra_changes=None, commit=True):
         if not new:
             changes = []
         for option in set(self.fields) - set(['comment']):
@@ -32,16 +32,19 @@ class TicketDetailForm(forms.Form):
                 updated = TicketOptionSelection.objects.filter(ticket=ticket, option=option).update(choice=choice)
                 if not updated:
                     TicketOptionSelection.objects.create(ticket=ticket, option=option, choice=choice)
-        if not new and (changes or self.cleaned_data['comment']):
+        if not new and (changes or self.cleaned_data['comment'] or extra_changes):
             change = TicketChange.objects.create(ticket=ticket, user=user, text=self.cleaned_data['comment'])
             for option, from_text, to_text in changes:
-                change.changes.create(option=option, from_text=from_text, to_text=to_text)
+                change.changes.create(option=option.name, from_text=from_text, to_text=to_text)
+            if extra_changes:
+                for option, (from_text, to_text) in extra_changes.iteritems():
+                    change.changes.create(option=option, from_text=from_text, to_text=to_text)
 
 
 def get_ticket_form(repo, edit=False):
     fields = SortedDict()
     if edit:
-        fields['comment'] = forms.CharField(widget=forms.Textarea)
+        fields['comment'] = forms.CharField(widget=forms.Textarea, required=False)
     for option in TicketOption.objects.filter(repo=repo):
         fields[option.name] = forms.ChoiceField(
             choices=[('', 'None')]+[(o.id, o.text) for o in option.choices.all()],
