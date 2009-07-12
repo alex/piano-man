@@ -43,18 +43,15 @@ def ticket_detail(request, slug, ticket_id):
     ticket = get_object_or_404(repo.tickets.all(), pk=ticket_id)
     TicketDetailForm = get_ticket_form(repo, edit=True)
     if request.method == "POST":
-        form = TicketForm(request.POST, instance=ticket)
         detail_form = TicketDetailForm(request.POST)
-        if form.is_valid() and detail_form.is_valid():
-            ticket = form.save()
+        if detail_form.is_valid():
             detail_form.save(ticket, new=False, user=request.user)
             return redirect(ticket)
     else:
-        form = TicketForm(instance=ticket)
         detail_form = TicketDetailForm(initial=dict([
             (selection.option.name, selection.choice_id) for selection in ticket.selections.all()
         ]))
     return render_to_response([
         'tickets/%s/ticket_detail.html' % repo.name,
         'tickets/ticket_detail.html',
-    ], {'repo': repo, 'ticket': ticket, 'form': form, 'detail_form': detail_form}, context_instance=RequestContext(request))
+    ], {'repo': repo, 'ticket': ticket, 'detail_form': detail_form}, context_instance=RequestContext(request))
