@@ -58,6 +58,10 @@ class TicketChange(models.Model):
     at = models.DateTimeField(default=datetime.datetime.now)
     text = models.TextField()
 
+    def get_absolute_url(self):
+        # TODO: return this with an anchor to this item
+        return self.ticket.get_absolute_url()
+
 class TicketChangeItem(models.Model):
     ticket_change = models.ForeignKey(TicketChange, related_name="changes")
 
