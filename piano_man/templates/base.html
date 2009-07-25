@@ -2,46 +2,53 @@
     <head>
         <title>{% block title %}Piano-Man: Riffing on Code{% endblock %}</title>
         {% block extra_head %}{% endblock %}
-        <link rel="stylesheet" href="{{ MEDIA_URL }}media/css/reset.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="{{ MEDIA_URL }}media/css/960.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="{{ MEDIA_URL }}media/css/global.css" type="text/css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/reset.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/text.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/grid.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/layout.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/nav.css" media="screen" />
+        <!--[if IE 6]>
+            <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/ie6.css" media="screen" />
+        <![endif]-->
+        <!--[if IE 7]>
+            <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/ie.css" media="screen" />
+        <![endif]-->
     </head>
     <body>
-        <div class="container_12">
-            <ul id="nav" class="grid_12">
-                <li><a href="{% url repo_list %}" class="first">Home</a>{% if repo %} &gt; {% endif %}</li>
+        <div class="container_16">
+            <div class="grid_16">
+                <h1 id="branding">
+                    <a href="{% url repo_list %}">Piano Man</a>
+                </h1>
+            </div>
+            <div class="clear"></div>
+            <div class="grid_16">
                 {% if repo %}
-                    <li><a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a></li>
+                    <ul class="nav main">
+                        <li>
+                            <a href="{% url timeline slug=repo.slug %}">Timeline</a>
+                        </li>
+                        <li>
+                            <a href="{% url ticket_list slug=repo.slug %}">Tickets</a>
+                        </li>
+                        <li>
+                            <a href="{% url new_ticket slug=repo.slug %}">New Ticket</a>
+                        </li>
+                        <li>
+                            <a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a>
+                        </li>
+                    </ul>
                 {% endif %}
-            </ul>
-            {% if repo %}
-                <ul id="subnav" class="grid_12">
-                    <li class="grid_2 alpha active"><a href="{% url timeline slug=repo.slug %}">Timeline</a></li>
-                    <li class="grid_2"><a href="{% url ticket_list slug=repo.slug %}">Tickets</a></li>
-                    <li class="grid_2"><a href="{% url new_ticket slug=repo.slug %}">New Ticket</a></li>
-                    <li class="grid_2 append_6 omega"><a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a></li>
-                </ul>
-            {% endif %}
-            <div class="grid_12">
+            </div>
+            <div class="clear"></div>
+            <div class="grid_16">
+                <h2 id="page-heading">{% block page_title %}{% endblock %}
+            </div>
+            <div class="clear"></div>
+            <div class="grid_16">
                 {% block content %}{% endblock %}
             </div>
-            <div class="grid_12">
-                <div class="grid_3 alpha" style="background-color:#6060c0">
-                    <p>Test Color</p>
-                </div>
-                <div class="grid_3" style="background-color:#f0f0f0">
-                    <p>Test Color</p>
-                </div>
-                <div class="grid_2" style="background-color:#303030; color: #f0f0f0">
-                    <p>Test Color</p>
-                </div>
-                <div class="grid_2" style="background-color:#f0c018">
-                    <p>Test Color</p>
-                </div>
-                <div class="grid_2 omega" style="background-color:#d84848">
-                    <p>Test Color</p>
-                </div>
-            </div>
+            <div class="clear"></div>
         </div>
     </body>
 </html>
