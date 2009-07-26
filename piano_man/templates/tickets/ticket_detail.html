@@ -2,44 +2,50 @@
 
 {% block title %}Details for ticket #{{ ticket.pk }} on {{ repo.name }}{% endblock %}
 
+{% block page_title %}Ticket #{{ ticket.pk }}{% endblock %}
+
 {% block content %}
-    <div class="grid_7 alpha">
-        <h2>{{ ticket.title }}</h2>
+    <div class="box">
+        <h3>{{ ticket.title }}</h3>
+        <ul>
+            <li>Created by: {{ ticket.creator }}</li>
+            <li>Created at: {{ ticket.created_at }}</li>
+            {% for selection in ticket.selections.all %}
+                <li>{{ selection.option }}: {{ selection.choice.text }}</li>
+            {% endfor %}
+        </ul>
         <p>{{ ticket.description }}</p>
     </div>
-
-    <ul class="grid_5 omega">
-        <li>Created by: {{ ticket.creator }}</li>
-        <li>Created at: {{ ticket.created_at }}</li>
-        {% for selection in ticket.selections.all %}
-            <li>{{ selection.option }}: {{ selection.choice.text }}</li>
-        {% endfor %}
-    </ul>
-
-    <h3>Changes</h3>
-    <ol id="change_list" class="grid_10 append_2">
-        {% for change in ticket.changes.all %}
-            <li>
-                <ul>
-                    <p>Changed by {{ change.user}} at {{ change.at }}</p>
-                    {% for change_item in change.changes.all %}
-                        <li>
-                            {{ change_item.option }} changed from {{ change_item.from_text|default:"None" }} to {{ change_item.to_text }}
-                        </li>
-                    {% endfor %}
-                </ul>
-                <p>{{ change.text }}</p>
-            </li>
-            <hr />
-        {% endfor %}
-    </ol>
-    <table class="grid_8 append_4">
-        <form method="post" action=".">
-            {{ detail_form }}
-            <tr>
-                <td></td>
-                <td><input type="submit" /></td>
-            </tr>
+    <div class="box">
+        <h3>Changes</h3>
+        <ul>
+            {% for change in ticket.changes.all %}
+                <li>
+                    <p class="meta">Changed by {{ change.user }} at {{ change.at }}</p>
+                    <ul>
+                        {% for change_item in change.changes.all %}
+                            <li>
+                                {{ change_item.option }} changed from {{ change_item.from_text|default:"None" }} to {{ change_item.to_text }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p>{{ change.text }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="box">
+        <form action="" method="post">
+            <fieldset>
+                <legend>Edit Ticket</legend>
+                {% for field in detail_form %}
+                    <p>
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </p>
+                {% endfor %}
+                <input type="submit" value="Edit Ticket" />
+            </fieldset>
         </form>
-    </table>
+    </div>
 {% endblock %}
