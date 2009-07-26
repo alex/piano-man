@@ -18,21 +18,21 @@
     </div>
     <div class="box">
         <h3>Changes</h3>
-        <ul>
+        <div>
             {% for change in ticket.changes.all %}
-                <li>
-                    <p class="meta">Changed by {{ change.user }} at {{ change.at }}</p>
-                    <ul>
+                <div>
+                    <h5>Changed by {{ change.user }} at {{ change.at }}</h5>
+                    <ul style="border-top: 1px solid #BBBBBB;">
                         {% for change_item in change.changes.all %}
-                            <li>
+                            <li {% if forloop.first %}style="padding-top: 7px;"{% endif %}>
                                 {{ change_item.option }} changed from {{ change_item.from_text|default:"None" }} to {{ change_item.to_text }}
                             </li>
                         {% endfor %}
                     </ul>
                     <p>{{ change.text }}</p>
-                </li>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
     <div class="box">
         <form action="" method="post">
