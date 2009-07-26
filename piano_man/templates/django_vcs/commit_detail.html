@@ -10,26 +10,38 @@
     {% diff_css %}
 {% endblock %}
 
-{% block content %}
-    <h1>
-        Details about commit {{ commit.commit_id }} on {{ repo.name }}
-    </h1>
-    <ul>
-        <li>Committed by: {{ commit.author }}</li>
-        <li>Committed at: {{ commit.time }}</li>
-        <li>Commit message: {{ commit.message|linebreaksbr }}</li>
-        <li>Affected files:
-            <ul>
-                {% for file in commit.files %}
-                    <li>
-                        <a href="{% url code_browser slug=repo.slug path=file %}?rev={{ commit.commit_id }}">
-                            {{ file }}
-                        <a/>
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
-    </ul>
+{% block page_title %}
+    Details about commit {{ commit.commit_id }} on {{ repo.name }}
+{% endblock %}
 
+{% block content %}
+    <table>
+        <tr>
+            <th>Commited by: </th>
+            <td>{{ commit.author }}</td>
+        </tr>
+        <tr>
+            <th>Commited at: </th>
+            <td>{{ commit.time }}</td>
+        </tr>
+        <tr>
+            <th>Commit message: </th>
+            <td>{{ commit.message|linebreaksbr }}</td>
+        </tr>
+        <tr>
+            <th>Affected files: </th>
+            <td>
+                <ul>
+                    {% for file in commit.files %}
+                        <li>
+                            <a href="{% url code_browser slug=repo.slug path=file %}?rev={{ commit.commit_id }}">
+                                {{ file }}
+                            <a/>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
     {{ commit.diff|render_diff }}
 {% endblock %}
