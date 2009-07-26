@@ -11,11 +11,13 @@
 {% block content %}
     {% regroup items by canonical_date.date as items %}
     {% for date in items %}
-        <h2>{{ date.grouper }}</h2>
-        <ul>
-            {% for item in date.list %}
-                {% timeline_item item repo %}
-            {% endfor %}
-        </ul>
+        <div class="box">
+            <h3>{{ date.grouper }}</h3>
+            <table>
+                {% for item in date.list %}
+                    {% timeline_item item repo MEDIA_URL %}
+                {% endfor %}
+            </table>
+        </div>
     {% endfor %}
 {% endblock %}

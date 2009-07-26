@@ -1,3 +1,13 @@
-<li class="new-ticket">
-    {{ item.canonical_date.time|time:"H:i" }} <a href="{{ item.get_absolute_url }}">New Ticket: {{ item.pk }}</a> - {{ item.title }}
-</li>
+<tr>
+    <td class="icon">
+        <img src="{{ MEDIA_URL }}media/img/bug_add.png" />
+    </td>
+    <td>
+        {{ item.canonical_date.time|time:"H:i" }}
+    </td>
+    <td>
+        <a href="{{ item.get_absolute_url }}">
+            New Ticket -- {{ item.pk }}
+        </a>
+    </td>
+</tr>
