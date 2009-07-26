@@ -8,24 +8,43 @@
     <link rel="stylesheet" href="{{ MEDIA_URL }}media/css/code_browser.css" type="text/css" media="screen" />
 {% endblock %}
 
+{% block page_title %}
+    Contents of {{ path }}
+{% endblock %}
+
 {% block content %}
-    <h1>
-        Contents of {{ path }}
-    </h1>
-    <ul>
-        {% for path, folder in folders %}
-            <li class="folder">
-                <a href="{% url code_browser slug=repo.slug path=path %}/">
-                    {{ folder }}/
-                </a>
-            </li>
-        {% endfor %}
-        {% for path, file in files %}
-            <li class="file">
-                <a href="{% url code_browser slug=repo.slug path=path %}">
-                    {{ file }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>File/Folder</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for path, folder in folders %}
+                <tr class="folder">
+                    <td class="icon">
+                        <img src="{{ MEDIA_URL }}media/img/folder.png" />
+                    </td>
+                    <td>
+                        <a href="{% url code_browser slug=repo.slug path=path %}/">
+                            {{ folder }}/
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for path, file in files %}
+                <tr class="icon">
+                    <td>
+                        <img src="{{ MEDIA_URL }}media/img/file.png" />
+                    </td>
+                    <td>
+                        <a href="{% url code_browser slug=repo.slug path=path %}">
+                            {{ file }}
+                        </a>
+                    </td>
+                </li>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
