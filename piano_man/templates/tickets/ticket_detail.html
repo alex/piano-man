@@ -19,7 +19,7 @@
                     <tr>
                 {% endif %}
                 <th>{{ selection.option }}: </th>
-                <td>{{ selection.choice.text }}</td>
+                <td>{{ selection.choice.text|default:"None" }}</td>
                 {% if not forloop.counter0|divisibleby:2 %}
                     </tr>
                 {% endif %}
