@@ -1,3 +1,5 @@
+{% load backstage %}
+
 <html>
     <head>
         <title>{% block title %}Piano-Man: Riffing on Code{% endblock %}</title>
@@ -23,8 +25,8 @@
             </div>
             <div class="clear"></div>
             <div class="grid_16">
-                {% if repo %}
-                    <ul class="nav main">
+                <ul class="nav main">
+                    {% if repo %}
                         <li>
                             <a href="{% url timeline slug=repo.slug %}">Timeline</a>
                         </li>
@@ -37,8 +39,28 @@
                         <li>
                             <a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a>
                         </li>
-                    </ul>
-                {% endif %}
+                    {% endif %}
+                    {% get_other_repos repo as repos %}
+                    {% for repo in repos %}
+                        <li class="secondary">
+                            <a href="{{ repo.get_absolute_url }}">{{ repo.name }}</a>
+                            <ul>
+                                <li>
+                                    <a href="{% url timeline slug=repo.slug %}">Timeline</a>
+                                </li>
+                                <li>
+                                    <a href="{% url ticket_list slug=repo.slug %}">Tickets</a>
+                                </li>
+                                <li>
+                                    <a href="{% url new_ticket slug=repo.slug %}">New Ticket</a>
+                                </li>
+                                <li>
+                                    <a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="clear"></div>
             <div class="grid_16">

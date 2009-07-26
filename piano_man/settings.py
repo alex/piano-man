@@ -90,4 +90,5 @@ INSTALLED_APPS = (
     'django_vcs',
     'tickets',
     'timeline',
+    'backstage',
 )
