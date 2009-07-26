@@ -7,13 +7,24 @@
 {% block content %}
     <div class="box">
         <h3>{{ ticket.title }}</h3>
-        <ul>
-            <li>Created by: {{ ticket.creator }}</li>
-            <li>Created at: {{ ticket.created_at }}</li>
+        <table>
+            <tr>
+                <th>Created by: </th>
+                <td>{{ ticket.creator }}</td>
+                <th>Created at: </th>
+                <td>{{ ticket.created_at }}</td>
+            </tr>
             {% for selection in ticket.selections.all %}
-                <li>{{ selection.option }}: {{ selection.choice.text }}</li>
+                {% if forloop.counter0|divisibleby:2 %}
+                    <tr>
+                {% endif %}
+                <th>{{ selection.option }}: </th>
+                <td>{{ selection.choice.text }}</td>
+                {% if not forloop.counter0|divisibleby:2 %}
+                    </tr>
+                {% endif %}
             {% endfor %}
-        </ul>
+        </table>
         <p>{{ ticket.description }}</p>
     </div>
     <div class="box">
