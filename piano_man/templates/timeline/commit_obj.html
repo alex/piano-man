@@ -7,7 +7,7 @@
     </td>
     <td>
         <a href="{% url commit_detail slug=repo.slug commit_id=item.commit_id %}">
-            {{ item.commit_id }} -- {{ item.message}}
+            {{ item.commit_id }} -- {{ item.message|truncatewords:40 }}
         </a>
     </td>
 </li>
