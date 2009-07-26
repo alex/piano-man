@@ -12,9 +12,10 @@
     </style>
 {% endblock %}
 
+{% block page_title %}
+    Contents of {{ path }}
+{% endblock %}
+
 {% block content %}
-    <h1>
-        Contents of {{ path }}
-    </h1>
     {{ file|highlight:path }}
 {% endblock %}
