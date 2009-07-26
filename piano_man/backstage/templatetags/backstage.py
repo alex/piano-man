@@ -11,7 +11,9 @@ class OtherRepos(template.Node):
 
     def render(self, context):
         repo = self.repo.resolve(context)
-        if not repo:
+        if repo:
+            repo = repo.id
+        else:
             repo = None
         context[self.varname] = CodeRepository.objects.exclude(id=repo)
         return ''
