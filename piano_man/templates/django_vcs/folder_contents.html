@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
+{% load backstage %}
+
 {% block title %}
     {{ path }} in {{ repo.name }}
 {% endblock %}
 
 {% block page_title %}
-    Contents of {{ path }}
+    Contents of {{ path|urlize_path:repo|safe }}
 {% endblock %}
 
 {% block content %}

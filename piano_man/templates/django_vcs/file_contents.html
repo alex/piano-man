@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load backstage %}
 {% load highlight %}
 
 {% block title %}
@@ -9,11 +10,14 @@
 {% block extra_head %}
     <style type="text/css">
         {% highlight_css %}
+        .linenos {
+            padding: 0;
+        }
     </style>
 {% endblock %}
 
 {% block page_title %}
-    Contents of {{ path }}
+    Contents of {{ path|urlize_path:repo|safe }}
 {% endblock %}
 
 {% block content %}
