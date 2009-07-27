@@ -1,6 +1,10 @@
 <tr>
     <td class="icon">
-        <img src="{{ MEDIA_URL }}media/img/bug_edit.png" />
+        {% if item.closes_ticket %}
+            <img src="{{ MEDIA_URL }}media/img/bug_delete.png" />
+        {% else %}
+            <img src="{{ MEDIA_URL }}media/img/bug_edit.png" />
+        {% endif %}
     </td>
     <td>
         {{ item.canonical_date.time|time:"H:i" }}

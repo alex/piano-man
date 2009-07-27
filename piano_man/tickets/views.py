@@ -10,7 +10,7 @@ from tickets.models import Ticket
 
 def ticket_list(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)
-    tickets = repo.tickets.all()
+    tickets = repo.tickets.filter(closed=False)
     return render_to_response([
         'tickets/%s/ticket_list.html' % repo.name,
         'tickets/ticket_list.html',
@@ -46,11 +46,12 @@ def ticket_detail(request, slug, ticket_id):
         detail_form = TicketDetailForm(request.POST)
         if detail_form.is_valid():
             detail_form.save(ticket, new=False, user=request.user)
+            ticket.save()
             return redirect(ticket)
     else:
         detail_form = TicketDetailForm(initial=dict([
             (selection.option.name, selection.choice_id) for selection in ticket.selections.all()
-        ]))
+        ] + [('closed', ticket.closed)]))
     return render_to_response([
         'tickets/%s/ticket_detail.html' % repo.name,
         'tickets/ticket_detail.html',

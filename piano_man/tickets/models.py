@@ -62,6 +62,17 @@ class TicketChange(models.Model):
         # TODO: return this with an anchor to this item
         return self.ticket.get_absolute_url()
 
+    def closes_ticket(self):
+        """
+        Returns whether this change closes it's ticket.
+        """
+        try:
+            changes = self.changes.get(option="Status")
+            if changes.to_text == "Closed":
+                return True
+        except TicketChangeItem.DoesNotExist:
+            return False
+
 class TicketChangeItem(models.Model):
     ticket_change = models.ForeignKey(TicketChange, related_name="changes")
 
