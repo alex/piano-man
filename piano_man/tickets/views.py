@@ -58,3 +58,16 @@ def ticket_detail(request, slug, ticket_id):
         'tickets/%s/ticket_detail.html' % repo.name,
         'tickets/ticket_detail.html',
     ], {'repo': repo, 'ticket': ticket, 'detail_form': detail_form}, context_instance=RequestContext(request))
+
+def ticket_option_chart(request, slug, option):
+    repo = get_object_or_404(CodeRepository, slug=slug)
+    option = get_object_or_404(repo.ticketoption_set, name__iexact=option)
+    data = {}
+    for choice in option.choices.all():
+        data[choice.text] = choice.ticketoptionselection_set.count()
+    data = sorted(data.iteritems(), key=lambda o: o[1], reverse=True)
+    total = sum([o[1] for o in data])
+    return render_to_response([
+        'tickets/%s/ticket_option_chart.html' % repo.name,
+        'tickets/ticket_option_chart.html',
+    ], {'repo': repo, 'option': option, 'data': data, 'total': total}, context_instance=RequestContext(request))

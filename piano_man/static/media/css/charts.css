@@ -1,0 +1,47 @@
+.chartlist {
+    border-top: 1px solid #EEEEEE;
+    float: left;
+    width: 15em;
+}
+
+.chartlist li {
+    border-bottom: 1px solid #EEEEEE;
+    display: block;
+    position: relative;
+}
+
+.chartlist li a {
+    display: block;
+    padding: 0.4em 4.5em 0.4em 0.5em;
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+}
+
+.chartlist .count {
+    color: #999999;
+    display: block;
+    font-size: 0.875em;
+    font-weight: bold;
+    line-height: 2em;
+    margin: 0 0.3em;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+
+.chartlist .index {
+    -moz-background-clip: border;
+    -moz-background-inline-policy: continuous;
+    -moz-background-origin: padding;
+    background: #B8E4F5 none repeat scroll 0;
+    display: block;
+    height: 100%;
+    left: 0;
+    line-height: 2em;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -9999px;
+    top: 0;
+}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Chart for {{ option.name }}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/charts.css" media="screen" />{% endblock %}
+{% block page_title %}Tickets by {{ option.name }}{% endblock %}
+
+{% block content %}
+    <ul class="chartlist">
+        {% for choice, count in data %}
+            <li>
+                <a href="">{{ choice }}</a>
+                <span class="count">{{ count }}</span>
+                <span class="index" style="width: {% widthratio count total 100 %}%"></span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
