@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Charts for {{ repo.name }}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/charts.css" media="screen" />
+{% endblock %}
+
+{% block page_title %}Ticket charts for {{ repo.name }}{% endblock %}
+
+{% block content %}
+    {% for option, results in data.iteritems %}
+        <div class="grid_4">
+            <h4>Tickets by {{ option }}</h4>
+            <ul class="chartlist">
+                {% for choice, count in results.0 %}
+                    <li>
+                        <a href="#">{{ choice }}</a>
+                        <span class="count">{{ count }}</span>
+                        <span class="index" style="width: {% widthratio count results.1 100 %}"%></span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if forloop.counter|divisibleby:4 %}
+            <div class="clear"></div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

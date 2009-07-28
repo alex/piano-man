@@ -60,12 +60,28 @@ def ticket_detail(request, slug, ticket_id):
         'tickets/ticket_detail.html',
     ], {'repo': repo, 'ticket': ticket, 'detail_form': detail_form}, context_instance=RequestContext(request))
 
-def ticket_option_chart(request, slug, option):
-    repo = get_object_or_404(CodeRepository, slug=slug)
-    option = get_object_or_404(repo.ticketoption_set, name__iexact=option)
+def nums_for_option(option):
     qs = option.choices.annotate(c=Count('ticketoptionselection')).values_list('text', 'c')
     data = sorted(qs, key=lambda o: o[1], reverse=True)
     total = sum([o[1] for o in data])
+    return data, total
+
+
+def ticket_option_charts(request, slug):
+    repo = get_object_or_404(CodeRepository, slug=slug)
+    options = repo.ticketoption_set.all()
+    data = {}
+    for option in options:
+        data[option.name] = nums_for_option(option)
+    return render_to_response([
+        'tickets/%s/ticket_option_charts.html' % repo.name,
+        'tickets/ticket_option_charts.html'
+    ], {'repo': repo, 'data': data}, context_instance=RequestContext(request))
+
+def ticket_option_chart(request, slug, option):
+    repo = get_object_or_404(CodeRepository, slug=slug)
+    option = get_object_or_404(repo.ticketoption_set, name__iexact=option)
+    data, total = nums_for_option(option)
     context = {
         'repo': repo,
         'option': option,
