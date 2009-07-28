@@ -47,3 +47,7 @@ def urlize_path(path, repo):
 @register.inclusion_tag('backstage/nav_bar_urls.html')
 def nav_bar_urls(repo, nested):
     return {'repo': repo, 'nested': nested}
+
+@register.inclusion_tag('backstage/chartlist.html')
+def chartlist(data, total):
+    return {'data': data, 'total': total}

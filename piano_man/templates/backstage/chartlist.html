@@ -1,0 +1,9 @@
+<ul class="chartlist">
+    {% for choice, count in data %}
+        <li>
+            <a href="">{{ choice }}</a>
+            <span class="count">{{ count }}</span>
+            <span class="index" style="width: {% widthratio count total 100 %}%"></span>
+        </li>
+    {% endfor %}
+</ul>

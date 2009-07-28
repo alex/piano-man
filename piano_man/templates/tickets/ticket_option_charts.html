@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load backstage %}
+
 {% block title %}Charts for {{ repo.name }}{% endblock %}
 
 {% block extra_head %}
@@ -16,15 +18,7 @@
                     Tickets by {{ option }}
                 </a>
             </h4>
-            <ul class="chartlist">
-                {% for choice, count in results.0 %}
-                    <li>
-                        <a href="#">{{ choice }}</a>
-                        <span class="count">{{ count }}</span>
-                        <span class="index" style="width: {% widthratio count results.1 100 %}"%></span>
-                    </li>
-                {% endfor %}
-            </ul>
+            {% chartlist results.0 results.1 %}
         </div>
         {% if forloop.counter|divisibleby:4 %}
             <div class="clear"></div>
