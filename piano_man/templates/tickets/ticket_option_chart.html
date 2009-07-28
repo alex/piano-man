@@ -43,15 +43,17 @@
         </div>
     </div>
     <div class="grid_3">
-        <h5>Charts for other options</h5>
-        <ul>
-            {% for option in options %}
-                <li>
-                    <a href="{% url ticket_option_chart slug=repo.slug option=option.name %}">
-                        {{ option.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="box">
+            <h5>Charts for other options</h5>
+            <ul>
+                {% for option in options %}
+                    <li>
+                        <a href="{% url ticket_option_chart slug=repo.slug option=option.name %}">
+                            {{ option.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock %}
