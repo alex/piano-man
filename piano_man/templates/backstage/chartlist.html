@@ -1,9 +1,13 @@
 <ul class="chartlist">
     {% for choice, count in data %}
         <li>
-            <a href="">{{ choice }}</a>
+            <a href="{% url ticket_list slug=repo.slug %}?{{ request.GET.urlencode }}{% if request.GET %}&{% endif %}{{ option }}={{ choice }}">
+                {{ choice }}
+            </a>
             <span class="count">{{ count }}</span>
-            <span class="index" style="width: {% widthratio count total 100 %}%"></span>
+            <span class="index" style="width: {% widthratio count total 100 %}%">
+                ({% widthratio count total 100 %}%)
+            </span>
         </li>
     {% endfor %}
 </ul>

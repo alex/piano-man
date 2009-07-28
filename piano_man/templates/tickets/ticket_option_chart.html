@@ -13,7 +13,7 @@
 {% block content %}
     <div class="grid_4">
         <h4>{{ total }} ticket{{ total|pluralize }} total</h4>
-        {% chartlist data total %}
+        {% chartlist data total option.name %}
     </div>
     <div class="grid_9">
         <div class="box">

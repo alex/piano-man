@@ -48,6 +48,13 @@ def urlize_path(path, repo):
 def nav_bar_urls(repo, nested):
     return {'repo': repo, 'nested': nested}
 
-@register.inclusion_tag('backstage/chartlist.html')
-def chartlist(data, total):
-    return {'data': data, 'total': total}
+@register.inclusion_tag('backstage/chartlist.html', takes_context=True)
+def chartlist(context, data, total, option):
+    new_context = {
+        'data': data,
+        'total': total,
+        'option': option,
+        'request': context['request'],
+        'repo': context['repo'],
+    }
+    return new_context
