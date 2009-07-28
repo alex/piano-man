@@ -43,3 +43,7 @@ def urlize_path(path, repo):
             'path': bit,
         })
     return ' / '.join(parts + bits[-1:])
+
+@register.inclusion_tag('backstage/nav_bar_urls.html')
+def nav_bar_urls(repo, nested):
+    return {'repo': repo, 'nested': nested}

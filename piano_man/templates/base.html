@@ -28,36 +28,14 @@
             <div class="grid_16">
                 <ul class="nav main">
                     {% if repo %}
-                        <li>
-                            <a href="{% url timeline slug=repo.slug %}">Timeline</a>
-                        </li>
-                        <li>
-                            <a href="{% url ticket_list slug=repo.slug %}">Tickets</a>
-                        </li>
-                        <li>
-                            <a href="{% url new_ticket slug=repo.slug %}">New Ticket</a>
-                        </li>
-                        <li>
-                            <a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a>
-                        </li>
+                        {% nav_bar_urls repo 0 %}
                     {% endif %}
                     {% get_other_repos repo as repos %}
                     {% for r in repos %}
                         <li class="secondary">
                             <a href="{{ r.get_absolute_url }}">{{ r.name }}</a>
                             <ul>
-                                <li>
-                                    <a href="{% url timeline slug=r.slug %}">Timeline</a>
-                                </li>
-                                <li>
-                                    <a href="{% url ticket_list slug=r.slug %}">Tickets</a>
-                                </li>
-                                <li>
-                                    <a href="{% url new_ticket slug=r.slug %}">New Ticket</a>
-                                </li>
-                                <li>
-                                    <a href="{% url code_browser slug=r.slug path='' %}">Code Browser</a>
-                                </li>
+                                {% nav_bar_urls r 1 %}
                             </ul>
                         </li>
                     {% endfor %}

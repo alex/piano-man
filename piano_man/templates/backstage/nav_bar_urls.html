@@ -1,0 +1,19 @@
+<li>
+    <a href="{% url timeline slug=repo.slug %}">Timeline</a>
+</li>
+<li>
+    <a href="{% url ticket_list slug=repo.slug %}">Tickets</a>
+    {% if not nested %}
+        <ul>
+            <li>
+                <a href="{% url ticket_option_charts slug=repo.slug %}">Ticket Charts</a>
+            </li>
+        </ul>
+    {% endif %}
+</li>
+<li>
+    <a href="{% url new_ticket slug=repo.slug %}">New Ticket</a>
+</li>
+<li>
+    <a href="{% url code_browser slug=repo.slug path='' %}">Code Browser</a>
+</li>
