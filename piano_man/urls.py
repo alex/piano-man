@@ -2,13 +2,9 @@ from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
 
-admin.autodiscover()
+from tickets.urls import ticket_urls
 
-ticket_urls = patterns('tickets.views',
-    url(r'^$', 'ticket_list', name='ticket_list'),
-    url(r'^new/$', 'new_ticket', name='new_ticket'),
-    url(r'^(?P<ticket_id>\d+)/$', 'ticket_detail', name='ticket_detail'),
-)
+admin.autodiscover()
 
 
 repo_urls = patterns('',
