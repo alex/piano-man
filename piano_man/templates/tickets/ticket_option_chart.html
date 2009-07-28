@@ -7,13 +7,28 @@
 {% block page_title %}Tickets by {{ option.name }}{% endblock %}
 
 {% block content %}
-    <ul class="chartlist">
-        {% for choice, count in data %}
-            <li>
-                <a href="">{{ choice }}</a>
-                <span class="count">{{ count }}</span>
-                <span class="index" style="width: {% widthratio count total 100 %}%"></span>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="grid_4">
+        <h4>{{ total }} ticket{{ total|pluralize }} total</h4>
+        <ul class="chartlist">
+            {% for choice, count in data %}
+                <li>
+                    <a href="">{{ choice }}</a>
+                    <span class="count">{{ count }}</span>
+                    <span class="index" style="width: {% widthratio count total 100 %}%"></span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="grid_3">
+        <h5>Charts for other options</h5>
+        <ul>
+            {% for option in options %}
+                <li>
+                    <a href="{% url ticket_option_chart slug=repo.slug option=option.name %}">
+                        {{ option.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

@@ -1,13 +1,14 @@
 .chartlist {
     border-top: 1px solid #EEEEEE;
     float: left;
-    width: 15em;
+    width: 100%;
 }
 
 .chartlist li {
     border-bottom: 1px solid #EEEEEE;
     display: block;
     position: relative;
+    margin-left: 0;
 }
 
 .chartlist li a {

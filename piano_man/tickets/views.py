@@ -67,7 +67,14 @@ def ticket_option_chart(request, slug, option):
         data[choice.text] = choice.ticketoptionselection_set.count()
     data = sorted(data.iteritems(), key=lambda o: o[1], reverse=True)
     total = sum([o[1] for o in data])
+    context = {
+        'repo': repo,
+        'option': option,
+        'data': data,
+        'total': total,
+        'options': repo.ticketoption_set.exclude(id=option.id)
+    }
     return render_to_response([
         'tickets/%s/ticket_option_chart.html' % repo.name,
         'tickets/ticket_option_chart.html',
-    ], {'repo': repo, 'option': option, 'data': data, 'total': total}, context_instance=RequestContext(request))
+    ], context, context_instance=RequestContext(request))
