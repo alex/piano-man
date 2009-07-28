@@ -16,7 +16,7 @@ class TicketChoiceFilter(MultipleChoiceFilter):
         return qs.filter(q).distinct()
 
 
-def filter_for_repo(repo):
+def filter_for_repo(repo, exclude=None):
     filters = {}
     filters['Meta'] = type('Meta', (object,), {'model': Ticket, 'fields': []})
     filters['closed'] = MultipleChoiceFilter(
@@ -24,8 +24,9 @@ def filter_for_repo(repo):
         widget=CheckboxSelectMultiple, initial=[0]
     )
     for option in repo.ticketoption_set.all():
-        filters[option.name] = TicketChoiceFilter(
-            choices=[(o.id, o.text) for o in option.choices.all()],
-            widget=CheckboxSelectMultiple
-        )
+        if exclude is None or (option.name not in exclude):
+            filters[option.name] = TicketChoiceFilter(
+                choices=[(o.id, o.text) for o in option.choices.all()],
+                widget=CheckboxSelectMultiple
+            )
     return type('TicketFilterSet', (FilterSet,), filters)

@@ -83,7 +83,7 @@ def ticket_option_charts(request, slug):
 def ticket_option_chart(request, slug, option):
     repo = get_object_or_404(CodeRepository, slug=slug)
     option = get_object_or_404(repo.ticketoption_set, name__iexact=option)
-    filter_class = filter_for_repo(repo)
+    filter_class = filter_for_repo(repo, exclude=[option.name])
     filter = filter_class(request.GET or None, queryset=repo.tickets.all())
     data, total = nums_for_option(option,
         option.choices.filter(ticketoptionselection__ticket__in=filter.qs)
