@@ -3,6 +3,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.db import models
 
+from backstage.utils import cached_attribute
 from django_vcs.models import CodeRepository
 
 from tickets.managers import TicketManager
@@ -62,6 +63,7 @@ class TicketChange(models.Model):
         # TODO: return this with an anchor to this item
         return self.ticket.get_absolute_url()
 
+    @cached_attribute
     def closes_ticket(self):
         """
         Returns whether this change closes it's ticket.

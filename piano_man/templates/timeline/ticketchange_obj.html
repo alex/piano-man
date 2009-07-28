@@ -11,7 +11,7 @@
     </td>
     <td>
         <a href="{{ item.get_absolute_url }}">
-            Ticket {{ item.ticket.id }} changed -- {{ item.ticket.title }}
+            Ticket {{ item.ticket.id }} {% if item.closes_ticket %}closed{% else %}changed{% endif %} -- {{ item.ticket.title }}
         </a>
     </td>
 </tr>
