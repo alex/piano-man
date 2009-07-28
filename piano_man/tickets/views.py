@@ -5,16 +5,18 @@ from django.template import RequestContext
 
 from django_vcs.models import CodeRepository
 
+from tickets.filters import filter_for_repo
 from tickets.forms import TicketForm, get_ticket_form
 from tickets.models import Ticket
 
 def ticket_list(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)
-    tickets = repo.tickets.filter(closed=False)
+    tickets = repo.tickets.all()
+    filter = filter_for_repo(repo)(request.GET or None, queryset=tickets)
     return render_to_response([
         'tickets/%s/ticket_list.html' % repo.name,
         'tickets/ticket_list.html',
-    ], {'repo': repo, 'tickets': tickets}, context_instance=RequestContext(request))
+    ], {'repo': repo, 'filter': filter}, context_instance=RequestContext(request))
 
 def new_ticket(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)

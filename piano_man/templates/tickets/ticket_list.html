@@ -5,6 +5,25 @@
 {% block page_title %}Tickets{% endblock %}
 
 {% block content %}
+    <div class="box">
+        <fieldset>
+            <legend>Custom Query</legend>
+            <form action="" method="get">
+                <table>
+                    {% for field in filter.form %}
+                        <tr>
+                            <th>{{ field.label_tag }}</th>
+                            <td>{{ field }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" />
+                    </tr>
+                </table>
+            </form>
+        </fieldset>
+    </div>
     <table>
         <tr>
             <th>#</th>
@@ -12,7 +31,7 @@
             <th>Created At</th>
             <th>Title</th>
         </tr>
-        {% for ticket in tickets %}
+        {% for ticket in filter.qs %}
             <tr>
                 <td>
                     <a href="{{ ticket.get_absolute_url }}">{{ ticket.id }}</a>
