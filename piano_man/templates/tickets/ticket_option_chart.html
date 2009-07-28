@@ -21,6 +21,27 @@
             {% endfor %}
         </ul>
     </div>
+    <div class="grid_9">
+        <div class="box">
+            <fieldset>
+                <legend>Custom Query</legend>
+                <form action="" method="get">
+                    <table>
+                        {% for field in filter.form %}
+                            <tr>
+                                <th>{{ field.label_tag }}</th>
+                                <td>{{ field }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" />
+                        </tr>
+                    </table>
+                </form>
+            </fieldset>
+        </div>
+    </div>
     <div class="grid_3">
         <h5>Charts for other options</h5>
         <ul>
