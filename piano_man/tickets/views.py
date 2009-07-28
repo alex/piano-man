@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 
@@ -62,10 +63,8 @@ def ticket_detail(request, slug, ticket_id):
 def ticket_option_chart(request, slug, option):
     repo = get_object_or_404(CodeRepository, slug=slug)
     option = get_object_or_404(repo.ticketoption_set, name__iexact=option)
-    data = {}
-    for choice in option.choices.all():
-        data[choice.text] = choice.ticketoptionselection_set.count()
-    data = sorted(data.iteritems(), key=lambda o: o[1], reverse=True)
+    qs = option.choices.annotate(c=Count('ticketoptionselection')).values_list('text', 'c')
+    data = sorted(qs, key=lambda o: o[1], reverse=True)
     total = sum([o[1] for o in data])
     context = {
         'repo': repo,
