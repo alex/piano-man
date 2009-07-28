@@ -11,7 +11,11 @@
 {% block content %}
     {% for option, results in data.iteritems %}
         <div class="grid_4">
-            <h4>Tickets by {{ option }}</h4>
+            <h4>
+                <a href="{% url ticket_option_chart slug=repo.slug option=option %}">
+                    Tickets by {{ option }}
+                </a>
+            </h4>
             <ul class="chartlist">
                 {% for choice, count in results.0 %}
                     <li>
