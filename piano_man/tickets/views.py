@@ -8,10 +8,17 @@ from django_vcs.models import CodeRepository
 
 from tickets.filters import filter_for_repo
 from tickets.forms import TicketForm, get_ticket_form
-from tickets.models import Ticket
+from tickets.models import Ticket, TicketReport
 
 def ticket_list(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)
+    if request.method == "POST":
+        TicketReport.objects.create(
+            name=request.POST['report_name'],
+            query_string=request.GET.urlencode(),
+            repo=repo
+        )
+        return redirect('ticket_reports', slug=repo.slug)
     tickets = repo.tickets.all()
     filter = filter_for_repo(repo)(request.GET or None, queryset=tickets)
     return render_to_response([
@@ -68,6 +75,13 @@ def nums_for_option(option, qs=None):
     total = sum([o[1] for o in data])
     return data, total
 
+def ticket_reports(request, slug):
+    repo = get_object_or_404(CodeRepository, slug=slug)
+    reports = repo.reports.all()
+    return render_to_response([
+        'tickets/%s/ticket_reoprts.html' % repo.name,
+        'tickets/ticket_reports.html',
+    ], {'repo': repo, 'reports': reports}, context_instance=RequestContext(request))
 
 def ticket_option_charts(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)

@@ -2,6 +2,22 @@
 
 {% block title %}Tickets for {{ repo.name }}{% endblock %}
 
+{% block extra_head %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}media/js/jquery-1.3.2.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#create_report').click(function() {
+                var name = prompt("What should this report be named?", "");
+                if (name == null) {
+                    return;
+                }
+                $('#report_name').val(name);
+                $('#report_form').submit()
+            });
+        })
+    </script>
+{% endblock %}
+
 {% block page_title %}Tickets{% endblock %}
 
 {% block content %}
@@ -48,4 +64,12 @@
             <tr>
         {% endfor %}
     </table>
+    <div class="box">
+        <div class="prefix_14">
+            <form id="report_form" action="" method="post">
+                <input id="report_name" name="report_name" type="hidden" />
+                <input id="create_report" type="button" value="Create report" />
+            </form>
+        </div>
+    </div>
 {% endblock %}

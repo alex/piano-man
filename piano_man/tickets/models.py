@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from backstage.utils import cached_attribute
@@ -81,3 +82,15 @@ class TicketChangeItem(models.Model):
     option = models.CharField(max_length=100)
     from_text = models.TextField()
     to_text = models.TextField()
+
+
+class TicketReport(models.Model):
+    repo = models.ForeignKey(CodeRepository, related_name='reports')
+    name = models.CharField(max_length=100)
+    query_string = models.CharField(max_length=255)
+
+    def get_absolute_url(self):
+        return "%s?%s" % (
+            reverse('ticket_list', kwargs={'slug': self.repo.slug}),
+            self.query_string
+        )
