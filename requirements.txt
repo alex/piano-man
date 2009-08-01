@@ -1,0 +1,4 @@
+-e git://github.com/alex/django-vcs.git#egg=django_vcs
+-e git://github.com/alex/pyvcs.git#egg=pyvcs
+-e git://github.com/alex/django-filter.git#egg=filter
+pygments
