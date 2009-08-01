@@ -28,6 +28,24 @@
         <p>{{ ticket.description }}</p>
     </div>
     <div class="box">
+        <h3>Attachments</h3>
+        <ul>
+            {% for attachment in ticket.attachments.all %}
+                <li>
+                    <a href="{{ atttachment.get_absolute_url }}">
+                        {{ attachment.file_name }}
+                    </a>
+                    uploaded by {{ attachment.uploaded_by }} at {{ attachment.uploaded_at }}
+                    <br />
+                    {{ attachment.description }}
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="{% url ticket_new_attachment slug=repo.slug ticket_id=ticket.id %}" method="get">
+            <input type="submit" value="Attach file" />
+        </form>
+    </div>
+    <div class="box">
         <h3>Changes</h3>
         <div>
             {% for change in ticket.changes.all %}

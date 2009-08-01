@@ -58,3 +58,7 @@ def chartlist(context, data, total, option):
         'repo': context['repo'],
     }
     return new_context
+
+@register.inclusion_tag('backstage/form.html')
+def render_form(form):
+    return {'form': form}

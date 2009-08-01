@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django_vcs.models import CodeRepository
 
 from tickets.filters import filter_for_repo
-from tickets.forms import TicketForm, get_ticket_form
+from tickets.forms import TicketForm, get_ticket_form, TicketAttachmentForm
 from tickets.models import Ticket, TicketReport
 
 def ticket_list(request, slug):
@@ -84,6 +84,33 @@ def ticket_reports(request, slug):
         'tickets/%s/ticket_reoprts.html' % repo.name,
         'tickets/ticket_reports.html',
     ], {'repo': repo, 'reports': reports}, context_instance=RequestContext(request))
+
+def ticket_attachment(request, slug, ticket_id, attachment_id):
+    repo = get_object_or_404(CodeRepository, slug=slug)
+    ticket = get_object_or_404(repo.tickets.all(), pk=ticket_id)
+    attachment = get_object_or_404(ticket.attachments.all(), pk=attachment_id)
+    return render_to_response([
+        'tickets/%s/ticket_attachment.html' % repo.name,
+        'tickets/ticket_attachment.html',
+    ], {'repo': repo, 'ticket': ticket, 'attachment': attachment}, context_instance=RequestContext(request))
+
+def ticket_new_attachment(request, slug, ticket_id):
+    repo = get_object_or_404(CodeRepository, slug=slug)
+    ticket = get_object_or_404(repo.tickets.all(), pk=ticket_id)
+    if request.method == "POST":
+        form = TicketAttachmentForm(request.POST, request.FILES)
+        if form.is_valid():
+            attachment = form.save(commit=False)
+            attachment.ticket = ticket
+            attachment.uploaded_by = request.user
+            attachment.save()
+            return redirect(attachment)
+    else:
+        form = TicketAttachmentForm()
+    return render_to_response([
+        'tickets/%s/new_attachment.html' % repo.name,
+        'tickets/new_attachment.html',
+    ], {'repo': repo, 'ticket': ticket, 'form': form}, context_instance=RequestContext(request))
 
 def ticket_option_charts(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)

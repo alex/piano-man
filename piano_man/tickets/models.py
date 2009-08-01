@@ -76,6 +76,17 @@ class TicketChange(models.Model):
         except TicketChangeItem.DoesNotExist:
             return False
 
+    @cached_attribute
+    def is_attachment(self):
+        """
+        Returns whether this change is actually an attachment.
+        """
+        try:
+            changes = self.changes.get(option="Attachment")
+            return True
+        except TicketChangeItem.DoesNotExist:
+            return False
+
 class TicketChangeItem(models.Model):
     ticket_change = models.ForeignKey(TicketChange, related_name="changes")
 
@@ -94,3 +105,21 @@ class TicketReport(models.Model):
             reverse('ticket_list', kwargs={'slug': self.repo.slug}),
             self.query_string
         )
+
+class TicketAttachment(models.Model):
+    ticket = models.ForeignKey(Ticket, related_name='attachments')
+    file = models.FileField(upload_to='attachments/')
+    uploaded_by = models.ForeignKey(User)
+    uploaded_at = models.DateTimeField(default=datetime.datetime.now)
+    description = models.TextField()
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('ticket_attachment', (), {
+            'slug': self.ticket.repo.slug,
+            'ticket_id': self.ticket.pk,
+            'attachment_id': self.pk
+        })
+
+    def file_name(self):
+        return self.file.name[len('attachments/'):]

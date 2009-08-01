@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load highlight %}
+
+{% block title %}{{ attachment.file_name }} on ticket #{{ ticket.pk }}{% endblock %}
+
+{% block page_title %}{{ attachment.file_name }}{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <p>{{ attachment.description }}</p>
+    </div>
+    {{ attachment.file.read|highlight:attachment.file_name }}
+{% endblock %}

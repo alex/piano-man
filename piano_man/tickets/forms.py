@@ -1,7 +1,8 @@
 from django import forms
 from django.utils.datastructures import SortedDict
 
-from tickets.models import Ticket, TicketOption, TicketOptionChoice, TicketOptionSelection, TicketChange
+from tickets.models import (Ticket, TicketOption, TicketOptionChoice,
+    TicketOptionSelection, TicketChange, TicketAttachment)
 
 class TicketForm(forms.ModelForm):
     class Meta:
@@ -61,3 +62,10 @@ def get_ticket_form(repo, edit=False):
     if edit:
         fields['closed'] = forms.BooleanField(required=False)
     return type('TicketForm', (TicketDetailForm,), fields)
+
+class TicketAttachmentForm(forms.ModelForm):
+    description = forms.CharField()
+
+    class Meta:
+        model = TicketAttachment
+        fields = ('file', 'description')
