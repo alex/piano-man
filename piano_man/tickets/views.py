@@ -13,6 +13,8 @@ from tickets.models import Ticket, TicketReport
 def ticket_list(request, slug):
     repo = get_object_or_404(CodeRepository, slug=slug)
     if request.method == "POST":
+        if not request.POST.get('report_name'):
+            return redirect(request.get_full_path())
         TicketReport.objects.create(
             name=request.POST['report_name'],
             query_string=request.GET.urlencode(),

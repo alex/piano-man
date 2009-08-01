@@ -4,18 +4,7 @@
 
 {% block extra_head %}
     <script type="text/javascript" src="{{ MEDIA_URL }}media/js/jquery-1.3.2.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $('#create_report').click(function() {
-                var name = prompt("What should this report be named?", "");
-                if (name == null) {
-                    return;
-                }
-                $('#report_name').val(name);
-                $('#report_form').submit()
-            });
-        })
-    </script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}media/js/create_report.js"></script>
 {% endblock %}
 
 {% block page_title %}Tickets{% endblock %}
