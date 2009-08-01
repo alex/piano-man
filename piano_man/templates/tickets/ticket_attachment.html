@@ -4,6 +4,12 @@
 
 {% block title %}{{ attachment.file_name }} on ticket #{{ ticket.pk }}{% endblock %}
 
+{% block extra_head %}
+    <style>
+        {% highlight_css %}
+    </style>
+{% endblock %}
+
 {% block page_title %}{{ attachment.file_name }}{% endblock %}
 
 {% block content %}
