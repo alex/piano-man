@@ -32,7 +32,7 @@
         <ul>
             {% for attachment in ticket.attachments.all %}
                 <li>
-                    <a href="{{ atttachment.get_absolute_url }}">
+                    <a href="{{ attachment.get_absolute_url }}">
                         {{ attachment.file_name }}
                     </a>
                     uploaded by {{ attachment.uploaded_by }} at {{ attachment.uploaded_at }}
