@@ -10,7 +10,9 @@
     </style>
 {% endblock %}
 
-{% block page_title %}{{ attachment.file_name }}{% endblock %}
+{% block page_title %}
+    {{ attachment.file_name }} on <a href="{{ ticket.get_absolute_url }}">ticket #{{ ticket.pk }}</a>
+{% endblock %}
 
 {% block content %}
     <div class="box">
