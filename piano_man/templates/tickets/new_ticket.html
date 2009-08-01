@@ -1,22 +1,14 @@
 {% extends "base.html" %}
 
+{% load backstage %}
+
 {% block title %}New Ticket for {{ repo.name }}{% endblock %}
 
 {% block content %}
     <form method="post" action=".">
         <fieldset>
-            {% for field in form %}
-                <p>
-                    {{ field.label_tag }}
-                    {{ field }}
-                </p>
-            {% endfor %}
-            {% for field in detail_form %}
-                <p>
-                    {{ field.label_tag }}
-                    {{ field }}
-                </p>
-            {% endfor %}
+            {% render_form form %}
+            {% render_form detail_form %}
             <input type="submit" value="Submit Ticket" />
         </fieldset>
     </form>
