@@ -61,6 +61,11 @@ class TicketChange(models.Model):
     text = models.TextField()
 
     def get_absolute_url(self):
+        if self.is_attachment():
+            return TicketAttachment.objects.get(
+                ticket=self.ticket, uploaded_by=self.user, uploaded_at=self.at,
+                description=self.text
+            ).get_absolute_url()
         # TODO: return this with an anchor to this item
         return self.ticket.get_absolute_url()
 
@@ -82,7 +87,7 @@ class TicketChange(models.Model):
         Returns whether this change is actually an attachment.
         """
         try:
-            changes = self.changes.get(option="Attachment")
+            self.changes.get(option="Attachment")
             return True
         except TicketChangeItem.DoesNotExist:
             return False
