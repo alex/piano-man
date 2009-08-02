@@ -94,6 +94,11 @@ class TicketChangeItem(models.Model):
     from_text = models.TextField()
     to_text = models.TextField()
 
+    def as_text(self):
+        if self.option == 'Attachment':
+            return 'Added attachment %s' % self.to_text
+        return '%s changed from %s to %s' % (self.option, self.from_text or None, self.to_text or None)
+
 
 class TicketReport(models.Model):
     repo = models.ForeignKey(CodeRepository, related_name='reports')

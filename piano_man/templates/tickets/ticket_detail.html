@@ -54,7 +54,7 @@
                     <ul style="border-top: 1px solid #BBBBBB;">
                         {% for change_item in change.changes.all %}
                             <li {% if forloop.first %}style="padding-top: 7px;"{% endif %}>
-                                {{ change_item.option }} changed from {{ change_item.from_text|default:"None" }} to {{ change_item.to_text }}
+                                {{ change_item.as_text }}
                             </li>
                         {% endfor %}
                     </ul>

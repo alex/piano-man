@@ -3,7 +3,11 @@
         {% if item.closes_ticket %}
             <img src="{{ MEDIA_URL }}media/img/bug_delete.png" />
         {% else %}
-            <img src="{{ MEDIA_URL }}media/img/bug_edit.png" />
+            {% if item.is_attachment %}
+                <img src="{{ MEDIA_URL }}media/img/attach.png" />
+            {% else %}
+                <img src="{{ MEDIA_URL }}media/img/bug_edit.png" />
+            {% endif %}
         {% endif %}
     </td>
     <td>
@@ -11,7 +15,11 @@
     </td>
     <td>
         <a href="{{ item.get_absolute_url }}">
-            Ticket {{ item.ticket.id }} {% if item.closes_ticket %}closed{% else %}changed{% endif %} -- {{ item.ticket.title }}
+            {% if item.is_attachment %}
+                Attachment uploaded to ticket {{ item.ticket.id }}
+            {% else %}
+                Ticket {{ item.ticket.id }} {% if item.closes_ticket %}closed{% else %}changed{% endif %} -- {{ item.ticket.title }}
+            {% endif %}
         </a>
     </td>
 </tr>

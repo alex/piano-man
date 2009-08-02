@@ -104,6 +104,8 @@ def ticket_new_attachment(request, slug, ticket_id):
             attachment.ticket = ticket
             attachment.uploaded_by = request.user
             attachment.save()
+            changes = ticket.changes.create(user=request.user, text=attachment.description)
+            changes.changes.create(option="Attachment", to_text=attachment.file_name())
             return redirect(attachment)
     else:
         form = TicketAttachmentForm()
