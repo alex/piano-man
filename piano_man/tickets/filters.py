@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.forms import CheckboxSelectMultiple
 
-from filter import FilterSet, MultipleChoiceFilter, BooleanFilter
+from django_filters import FilterSet, MultipleChoiceFilter, BooleanFilter
 
 from tickets.models import Ticket
 
