@@ -9,3 +9,5 @@ piano-man has the following dependencies:
     * Django 1.1 or newer
     * django-vcs (and it's dependencies)
     * django-filter
+
+The piano-man mailing list is available `here <http://groups.google.com/group/piano-man-dev>`_.
